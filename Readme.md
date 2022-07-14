@@ -1,5 +1,8 @@
 # Installation
 
+## Clone solution
+    git clone https://github.com/silashansen/v_automation.git
+
 ## Install requirements
     pip3 install -r requirements.txt
 
