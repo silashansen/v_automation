@@ -1,0 +1,67 @@
+[
+        {
+                "salesChannelId": 1,
+                "salesChannelName": "Platform-BE",
+                "excludeCategories": [ 3029 ]
+        },
+        {
+                "salesChannelId": 2,
+                "salesChannelName": "Platform-CH",
+                "excludeCategories": [ 388 ]
+        },
+        {
+                "salesChannelId": 3,
+                "salesChannelName": "Platform-DK",
+                "excludeCategories": [ 2743 ]
+        },
+        {
+                "salesChannelId": 4,
+                "salesChannelName": "Platform-NL",
+                "excludeCategories": [ 3047 ]
+        },
+        {
+                "salesChannelId": 5,
+                "salesChannelName": "Platform-NO",
+                "excludeCategories": [ 2651 ]
+        },
+        {
+                "salesChannelId": 6,
+                "salesChannelName": "Platform-PL",
+                "excludeCategories": [ 3201 ]
+        },
+        {
+                "salesChannelId": 7,
+                "salesChannelName": "Platform-SE",
+                "excludeCategories": [ 2414 ]
+        },
+        {
+                "salesChannelId": 8,
+                "salesChannelName": "Platform-DE",
+                "excludeCategories": [ 428 ]
+        },
+        {
+                "salesChannelId": 9,
+                "salesChannelName": "Platform-ES",
+                "excludeCategories": [ 433 ]
+        },
+        {
+                "salesChannelId": 10,
+                "salesChannelName": "Platform-FI",
+                "excludeCategories": [ 428 ]
+        },
+        {
+                "salesChannelId": 11,
+                "salesChannelName": "Platform-FR",
+                "excludeCategories": [ 429 ]
+        },
+        {
+                "salesChannelId": 12,
+                "salesChannelName": "Platform-IT",
+                "excludeCategories": [ 430 ]
+        },
+        {
+                "salesChannelId": 13,
+                "salesChannelName": "Platform-UK",
+                "excludeCategories": [ 428 ]
+        }
+]

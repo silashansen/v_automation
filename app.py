@@ -8,76 +8,40 @@ import requests
 from datetime import datetime, date
 import calendar
 import sys
+import json
 
 
+def run():
 
-markets  = [
-        {
-                "salesChannelId": 1,
-                "salesChannelName": "Platform-BE",
-                "excludeCategories": [ 3029 ]
-        },
-        {
-                "salesChannelId": 2,
-                "salesChannelName": "Platform-CH",
-                "excludeCategories": [ 388 ]
-        },
-        {
-                "salesChannelId": 3,
-                "salesChannelName": "Platform-DK",
-                "excludeCategories": [ 2743 ]
-        },
-        {
-                "salesChannelId": 4,
-                "salesChannelName": "Platform-NL",
-                "excludeCategories": [ 3047 ]
-        },
-        {
-                "salesChannelId": 5,
-                "salesChannelName": "Platform-NO",
-                "excludeCategories": [ 2651 ]
-        },
-        {
-                "salesChannelId": 6,
-                "salesChannelName": "Platform-PL",
-                "excludeCategories": [ 3201 ]
-        },
-        {
-                "salesChannelId": 7,
-                "salesChannelName": "Platform-SE",
-                "excludeCategories": [ 2414 ]
-        },
-        {
-                "salesChannelId": 8,
-                "salesChannelName": "Platform-DE",
-                "excludeCategories": [ 428 ]
-        },
-        {
-                "salesChannelId": 9,
-                "salesChannelName": "Platform-ES",
-                "excludeCategories": [ 433 ]
-        },
-        {
-                "salesChannelId": 10,
-                "salesChannelName": "Platform-FI",
-                "excludeCategories": [ 428 ]
-        },
-        {
-                "salesChannelId": 11,
-                "salesChannelName": "Platform-FR",
-                "excludeCategories": [ 429 ]
-        },
-        {
-                "salesChannelId": 12,
-                "salesChannelName": "Platform-IT",
-                "excludeCategories": [ 430 ]
-        },
-        {
-                "salesChannelId": 13,
-                "salesChannelName": "Platform-UK",
-                "excludeCategories": [ 428 ]
-        }
-]
+    prefix = getPrefixArg()
+    startdate = getDateArg()
+
+    startDate = datetime.strptime(startdate, '%d-%m-%Y')
+    endDate = date(startDate.year, startDate.month, calendar.monthrange(startDate.year, startDate.month)[1])
+
+    driver = initializeWebDriver()
+    signin(driver, "<username>", "<password>")
+
+    waitForDashboard(driver)
+    prepareLoggingCanvas(driver)
+    logLineToBrowser(driver, "Logged in successfully", "large1")  
+    logLineToBrowser(driver, f"Will create vouchers from {startDate} to {endDate}")
+    
+    markets  = loadMarketsFromFile()
+    for m in markets:
+        input(f"Pres enter to create: {m['salesChannelName']}")
+        logLineToBrowser(driver, f".")
+        logLineToBrowser(driver, f"{m['salesChannelName']}", "large2")
+        createVoucherForMarket(driver, m, f"Friends&Family{prefix}", 20, startDate, endDate)
+        createVoucherForMarket(driver, m, f"MiintoEmployee{prefix}", 25, startDate, endDate)
+
+    inp = input('All done. Press enter to exit!')
+    driver.close()
+
+
+def loadMarketsFromFile():
+    f = open("markets.json")
+    return json.load(f)
 
 
 def FindByElementTextContains(driver, text):
@@ -206,38 +170,12 @@ def initializeWebDriver():
     return driver
 
 def getPrefixArg():
+    #this is VERY naive
     return sys.argv[1]
 
 def getDateArg():
+    #this is VERY naive
     return sys.argv[2]
-
-def run():
-
-    prefix = getPrefixArg()
-    startdate = getDateArg()
-
-    startDate = datetime.strptime(startdate, '%d-%m-%Y')
-    endDate = date(startDate.year, startDate.month, calendar.monthrange(startDate.year, startDate.month)[1])
-
-    driver = initializeWebDriver()
-    signin(driver, "<username>", "<password>")
-
-    waitForDashboard(driver)
-    prepareLoggingCanvas(driver)
-    logLineToBrowser(driver, "Logged in successfully", "large1")  
-    logLineToBrowser(driver, f"Will create vouchers from {startDate} to {endDate}")
-    
-    for m in markets:
-        input(f"Pres enter to create: {m['salesChannelName']}")
-        logLineToBrowser(driver, f".")
-        logLineToBrowser(driver, f"{m['salesChannelName']}", "large2")
-        createVoucherForMarket(driver, m, f"Friends&Family{prefix}", 20, startDate, endDate)
-        createVoucherForMarket(driver, m, f"MiintoEmployee{prefix}", 25, startDate, endDate)
-
-    inp = input('All done. Press enter to exit!')
-    driver.close()
-
-
 
 if __name__ == "__main__":
     run()
